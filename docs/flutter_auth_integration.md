@@ -134,6 +134,14 @@ Payload real esperado por este backend:
 }
 ```
 
+La app Flutter debe resolver la ubicacion de forma jerarquica:
+
+- seleccionar pais
+- seleccionar region
+- seleccionar ciudad
+
+Pero en el registro se envia solo `id_city`, porque el backend deduce la relacion con `region` y `country` desde esa ciudad.
+
 Respuesta:
 
 ```json
