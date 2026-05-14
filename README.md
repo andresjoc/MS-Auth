@@ -132,6 +132,7 @@ Documentación automática:
 
 Ahora `birth_date` es obligatorio porque forma parte del modelo compartido `app_user`.
 Tambien `id_city` es obligatorio porque `MS AUTH` crea el registro completo en `app_user`.
+La ubicacion se resuelve por jerarquia `city -> region -> country`, pero el registro persiste solo `id_city`.
 
 ```json
 {
