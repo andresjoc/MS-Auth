@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from database.connection import get_db
 from dependencies.auth_guard import get_current_user_from_token
 from dependencies.current_user import get_current_active_user
-from models.user import AppUser, AuthCredential
+from models.user import AppUser, AuthCredential, City
 from schemas.auth import (
     LoginRequest,
     RegisterRequest,
@@ -35,7 +35,15 @@ def register_user(payload: RegisterRequest, db: Session = Depends(get_db)):
             detail="User already exists",
         )
 
+    city = db.query(City).filter(City.id_city == payload.id_city).first()
+    if city is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="City not found",
+        )
+
     user = AppUser(
+        id_city=payload.id_city,
         email=payload.email,
         first_name=payload.first_name,
         last_name=payload.last_name,

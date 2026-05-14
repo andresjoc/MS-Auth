@@ -131,9 +131,11 @@ Documentación automática:
 ### Payload esperado
 
 Ahora `birth_date` es obligatorio porque forma parte del modelo compartido `app_user`.
+Tambien `id_city` es obligatorio porque `MS AUTH` crea el registro completo en `app_user`.
 
 ```json
 {
+  "id_city": 11001,
   "email": "ana@example.com",
   "password": "Secret123!",
   "first_name": "Ana",
@@ -147,6 +149,7 @@ Ahora `birth_date` es obligatorio porque forma parte del modelo compartido `app_
 ```json
 {
   "id_user": 1,
+  "id_city": 11001,
   "email": "ana@example.com",
   "first_name": "Ana",
   "last_name": "Lopez",
@@ -230,7 +233,7 @@ Respuesta:
 ```bash
 curl -X POST http://127.0.0.1:8002/auth/register \
   -H "Content-Type: application/json" \
-  -d "{\"email\":\"ana@example.com\",\"password\":\"Secret123!\",\"first_name\":\"Ana\",\"last_name\":\"Lopez\",\"birth_date\":\"1998-04-21\"}"
+  -d "{\"id_city\":11001,\"email\":\"ana@example.com\",\"password\":\"Secret123!\",\"first_name\":\"Ana\",\"last_name\":\"Lopez\",\"birth_date\":\"1998-04-21\"}"
 ```
 
 ### Login

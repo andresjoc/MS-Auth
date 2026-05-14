@@ -125,6 +125,7 @@ Payload real esperado por este backend:
 
 ```json
 {
+  "id_city": 11001,
   "email": "ana@example.com",
   "password": "Secret123!",
   "first_name": "Ana",
@@ -138,6 +139,7 @@ Respuesta:
 ```json
 {
   "id_user": 1,
+  "id_city": 11001,
   "email": "ana@example.com",
   "first_name": "Ana",
   "last_name": "Lopez",
@@ -156,6 +158,7 @@ Future<void> registerUser() async {
     Uri.parse('http://127.0.0.1:8002/auth/register'),
     headers: {'Content-Type': 'application/json'},
     body: jsonEncode({
+      'id_city': 11001,
       'email': 'ana@example.com',
       'password': 'Secret123!',
       'first_name': 'Ana',
