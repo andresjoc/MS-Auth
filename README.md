@@ -126,7 +126,8 @@ Documentación automática:
 1. busca si el email ya existe en `app_user`
 2. crea primero el registro en `app_user`
 3. crea después el registro en `auth_credential`
-4. guarda la contraseña solo como `password_hash`
+4. crea el `health_record` inicial del usuario
+5. guarda la contraseña solo como `password_hash`
 
 ### Payload esperado
 
@@ -137,6 +138,8 @@ La ubicacion se resuelve por jerarquia `city -> region -> country`, pero el regi
 ```json
 {
   "id_city": 11001,
+  "weight_kg": 72.5,
+  "height_cm": 178.0,
   "email": "ana@example.com",
   "password": "Secret123!",
   "first_name": "Ana",
@@ -151,6 +154,8 @@ La ubicacion se resuelve por jerarquia `city -> region -> country`, pero el regi
 {
   "id_user": 1,
   "id_city": 11001,
+  "weight_kg": 72.5,
+  "height_cm": 178.0,
   "email": "ana@example.com",
   "first_name": "Ana",
   "last_name": "Lopez",
@@ -234,7 +239,7 @@ Respuesta:
 ```bash
 curl -X POST http://127.0.0.1:8002/auth/register \
   -H "Content-Type: application/json" \
-  -d "{\"id_city\":11001,\"email\":\"ana@example.com\",\"password\":\"Secret123!\",\"first_name\":\"Ana\",\"last_name\":\"Lopez\",\"birth_date\":\"1998-04-21\"}"
+  -d "{\"id_city\":11001,\"weight_kg\":72.5,\"height_cm\":178.0,\"email\":\"ana@example.com\",\"password\":\"Secret123!\",\"first_name\":\"Ana\",\"last_name\":\"Lopez\",\"birth_date\":\"1998-04-21\"}"
 ```
 
 ### Login
