@@ -126,6 +126,8 @@ Payload real esperado por este backend:
 ```json
 {
   "id_city": 11001,
+  "weight_kg": 72.5,
+  "height_cm": 178.0,
   "email": "ana@example.com",
   "password": "Secret123!",
   "first_name": "Ana",
@@ -141,6 +143,7 @@ La app Flutter debe resolver la ubicacion de forma jerarquica:
 - seleccionar ciudad
 
 Pero en el registro se envia solo `id_city`, porque el backend deduce la relacion con `region` y `country` desde esa ciudad.
+El backend tambien recibe `weight_kg` y `height_cm` y crea el `health_record` inicial durante el registro.
 
 Respuesta:
 
@@ -148,6 +151,8 @@ Respuesta:
 {
   "id_user": 1,
   "id_city": 11001,
+  "weight_kg": 72.5,
+  "height_cm": 178.0,
   "email": "ana@example.com",
   "first_name": "Ana",
   "last_name": "Lopez",
@@ -167,6 +172,8 @@ Future<void> registerUser() async {
     headers: {'Content-Type': 'application/json'},
     body: jsonEncode({
       'id_city': 11001,
+      'weight_kg': 72.5,
+      'height_cm': 178.0,
       'email': 'ana@example.com',
       'password': 'Secret123!',
       'first_name': 'Ana',

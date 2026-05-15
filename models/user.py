@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Date, DateTime, ForeignKey, Integer, String
+from sqlalchemy import DECIMAL, Boolean, Column, Date, DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
@@ -54,6 +54,23 @@ class AppUser(Base):
         cascade="all, delete-orphan",
     )
     city = relationship("City", back_populates="users")
+    health_records = relationship(
+        "HealthRecord",
+        back_populates="user",
+        cascade="all, delete-orphan",
+    )
+
+
+class HealthRecord(Base):
+    __tablename__ = "health_record"
+
+    id_health_record = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    id_user = Column(Integer, ForeignKey("app_user.id_user"), nullable=False)
+    weight_kg = Column(DECIMAL(5, 2), nullable=False)
+    height_cm = Column(DECIMAL(5, 1), nullable=False)
+    recorded_at = Column(DateTime, nullable=False, server_default=func.now())
+
+    user = relationship("AppUser", back_populates="health_records")
 
 
 class AuthCredential(Base):

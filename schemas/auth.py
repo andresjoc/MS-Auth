@@ -5,6 +5,8 @@ from pydantic import BaseModel, EmailStr
 
 class RegisterRequest(BaseModel):
     id_city: int
+    weight_kg: float
+    height_cm: float
     email: EmailStr
     password: str
     first_name: str
@@ -38,6 +40,8 @@ class UserResponse(BaseModel):
 class RegisterResponse(BaseModel):
     id_user: int
     id_city: int
+    weight_kg: float
+    height_cm: float
     email: EmailStr
     first_name: str
     last_name: str

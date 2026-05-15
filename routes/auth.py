@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from database.connection import get_db
 from dependencies.auth_guard import get_current_user_from_token
 from dependencies.current_user import get_current_active_user
-from models.user import AppUser, AuthCredential, City
+from models.user import AppUser, AuthCredential, City, HealthRecord
 from schemas.auth import (
     LoginRequest,
     RegisterRequest,
@@ -58,12 +58,27 @@ def register_user(payload: RegisterRequest, db: Session = Depends(get_db)):
         password_hash=hash_password(payload.password),
         is_active=True,
     )
+    health_record = HealthRecord(
+        id_user=user.id_user,
+        weight_kg=f"{payload.weight_kg:.2f}",
+        height_cm=f"{payload.height_cm:.1f}",
+    )
 
     db.add(credential)
+    db.add(health_record)
     db.commit()
     db.refresh(user)
 
-    return user
+    return {
+        "id_user": user.id_user,
+        "id_city": user.id_city,
+        "weight_kg": payload.weight_kg,
+        "height_cm": payload.height_cm,
+        "email": user.email,
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "birth_date": user.birth_date,
+    }
 
 
 @router.post("/login", response_model=TokenResponse)
